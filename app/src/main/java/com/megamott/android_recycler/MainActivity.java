@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         numberSheet = findViewById(R.id.number_sheet);
         numberSheet.setLayoutManager(new LinearLayoutManager(this));
-        numberSheet.setAdapter(new NumberAdapter(100));
+        numberSheet.setAdapter(new NumberAdapter(100, this));
+    }
 
+    public void onClickShowNumber(View view){
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 }

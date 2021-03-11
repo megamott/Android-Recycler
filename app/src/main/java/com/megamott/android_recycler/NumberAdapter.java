@@ -11,18 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NumberAdapter extends RecyclerView.Adapter<NumberViewHolder> {
 
     private int sheetSize;
+    private Context parent;
 
-    NumberAdapter(int sheetSize){
+    NumberAdapter(int sheetSize, Context parent){
         this.sheetSize = sheetSize;
+        this.parent = parent;
     }
 
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForNumber= R.layout.number_layout;
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View numberLayoutView = layoutInflater.inflate(layoutIdForNumber, parent, false);
+        int layoutIdForNumber = R.layout.number_layout;
+        View numberLayoutView = LayoutInflater.from(context).inflate(layoutIdForNumber, parent, false);
         return new NumberViewHolder(numberLayoutView);
     }
 
