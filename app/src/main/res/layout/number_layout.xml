@@ -10,7 +10,6 @@
         android:id="@+id/number_element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickShowNumber"
         android:textSize="48sp"
         android:fontFamily="monospace"/>
 

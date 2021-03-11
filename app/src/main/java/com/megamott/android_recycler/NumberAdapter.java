@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NumberAdapter extends RecyclerView.Adapter<NumberViewHolder> {
+public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberViewHolder> {
 
     private int sheetSize;
     private Context parent;
@@ -35,5 +37,23 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberViewHolder> {
     @Override
     public int getItemCount() {
         return sheetSize;
+    }
+
+    public class NumberViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView numberView;
+
+        public NumberViewHolder(@NonNull View itemView) {
+            super(itemView);
+            numberView = itemView.findViewById(R.id.number_element);
+            itemView.setOnClickListener(v -> Toast.makeText(parent, String.valueOf(getAdapterPosition() + 1), Toast.LENGTH_SHORT).show());
+        }
+
+        public void bind(int onSheetIndex){
+            numberView.setText(String.valueOf(onSheetIndex));
+            numberView.setTextColor(parent
+                    .getResources()
+                    .getColor(onSheetIndex %2 == 0 ? R.color.teal_700 : R.color.design_default_color_error));
+        }
     }
 }

@@ -21,8 +21,4 @@ public class MainActivity extends AppCompatActivity {
         numberSheet.setLayoutManager(new LinearLayoutManager(this));
         numberSheet.setAdapter(new NumberAdapter(100, this));
     }
-
-    public void onClickShowNumber(View view){
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-    }
 }
