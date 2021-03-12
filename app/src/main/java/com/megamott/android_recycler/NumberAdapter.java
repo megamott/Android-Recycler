@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +13,13 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
     private int sheetSize;
     private Context parent;
+    private LayoutInflater numberInflater;
+    private ItemClickListener itemClickListener;
 
     NumberAdapter(int sheetSize, Context parent){
         this.sheetSize = sheetSize;
         this.parent = parent;
+        this.numberInflater = LayoutInflater.from(parent);
     }
 
     public void insert(){
@@ -28,9 +30,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        int layoutIdForNumber = R.layout.number_layout;
-        View numberLayoutView = LayoutInflater.from(context).inflate(layoutIdForNumber, parent, false);
+        View numberLayoutView = numberInflater.inflate(R.layout.number_layout, parent, false);
         return new NumberViewHolder(numberLayoutView);
     }
 
@@ -44,14 +44,14 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
         return sheetSize;
     }
 
-    public class NumberViewHolder extends RecyclerView.ViewHolder {
+    public class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView numberView;
+        private final TextView numberView;
 
         public NumberViewHolder(@NonNull View itemView) {
             super(itemView);
             numberView = itemView.findViewById(R.id.number_element);
-            itemView.setOnClickListener(v -> Toast.makeText(parent, String.valueOf(getAdapterPosition() + 1), Toast.LENGTH_SHORT).show());
+            itemView.setOnClickListener(this::onClick);
         }
 
         public void bind(int onSheetIndex){
@@ -60,5 +60,19 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
                     .getResources()
                     .getColor(onSheetIndex %2 == 0 ? R.color.red : R.color.blue));
         }
+
+        @Override
+        public void onClick(View view) {
+            if (itemClickListener != null) itemClickListener.onItemClick(view, getAdapterPosition());
+        }
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+
+    @FunctionalInterface
+    public interface ItemClickListener{
+        void onItemClick(View view, int position);
     }
 }
