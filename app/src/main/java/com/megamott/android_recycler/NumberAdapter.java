@@ -20,6 +20,11 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
         this.parent = parent;
     }
 
+    public void insert(){
+        sheetSize += 1;
+        notifyItemInserted(sheetSize);
+    }
+
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
