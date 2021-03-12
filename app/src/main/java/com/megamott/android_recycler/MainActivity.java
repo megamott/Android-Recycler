@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         numberSheet = findViewById(R.id.number_sheet);
-        numberSheet.setLayoutManager(new LinearLayoutManager(this));
+        numberSheet.setLayoutManager(new GridLayoutManager(this, 3));
         numberAdapter = new NumberAdapter(20, this);
         numberSheet.setAdapter(numberAdapter);
     }

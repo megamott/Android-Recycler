@@ -58,7 +58,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
             numberView.setText(String.valueOf(onSheetIndex));
             numberView.setTextColor(parent
                     .getResources()
-                    .getColor(onSheetIndex %2 == 0 ? R.color.teal_700 : R.color.design_default_color_error));
+                    .getColor(onSheetIndex %2 == 0 ? R.color.red : R.color.blue));
         }
     }
 }
