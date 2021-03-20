@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
+    android:padding="@dimen/frame_layout_padding"
     android:layout_width="@dimen/sheet_grid_size"
     android:layout_height="@dimen/sheet_grid_size">
 
