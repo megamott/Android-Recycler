@@ -8,23 +8,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NumbersListFragment extends Fragment implements NumberAdapter.ItemClickListener{
+public class NumbersListFragment extends Fragment implements NumberAdapter.ItemClickListener {
 
     private static final String POSITION_KEY = "POSITION";
     private RecyclerView numberSheet;
     private NumberAdapter numberAdapter;
     private Button button;
-    private int position_counter = 0;
+    private int position_counter = 20;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        position_counter = savedInstanceState == null ? 20 : Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        position_counter = savedInstanceState == null ? 20 : Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
 
         View view = inflater.inflate(R.layout.fragment_numbers_list, container, false);
 
@@ -40,7 +45,8 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
         button = view.findViewById(R.id.insertion_button);
         button.setOnClickListener(v -> {
             ++position_counter;
-            numberAdapter.insert();});
+            numberAdapter.insert();
+        });
 
         return view;
     }
