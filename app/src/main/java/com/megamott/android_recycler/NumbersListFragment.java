@@ -1,18 +1,16 @@
 package com.megamott.android_recycler;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NumbersListFragment extends Fragment implements NumberAdapter.ItemClickListener{
 
@@ -44,6 +42,10 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity(), String.valueOf(position + 1), Toast.LENGTH_SHORT).show();
+        NumberFragment nextFrag = new NumberFragment(view);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_layout, nextFrag, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }
