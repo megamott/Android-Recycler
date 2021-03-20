@@ -30,7 +30,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View numberLayoutView = numberInflater.inflate(R.layout.number_layout, parent, false);
+        View numberLayoutView = numberInflater.inflate(R.layout.number_in_sheet_layout, parent, false);
         return new NumberViewHolder(numberLayoutView);
     }
 
