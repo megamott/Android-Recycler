@@ -10,5 +10,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getSupportFragmentManager().findFragmentById(R.id.main_layout) == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main_layout, new NumbersListFragment())
+                    .commit();
+        }
     }
 }

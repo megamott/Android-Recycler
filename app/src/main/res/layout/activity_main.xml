@@ -5,10 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:name="com.megamott.android_recycler.NumbersListFragment"
-        android:id="@+id/fragment_placed"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 </FrameLayout>
