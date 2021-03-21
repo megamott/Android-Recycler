@@ -1,4 +1,4 @@
-package com.megamott.android_recycler;
+package com.megamott.android_recycler.fragments;
 
 import android.os.Bundle;
 
@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.megamott.android_recycler.R;
+
 public class NumberFragment extends Fragment {
 
-    private static final String COLOR = "color";
-    private static final String TEXT = "text";
+    private static final String COLOR = "COLOR";
+    private static final String TEXT = "TEXT";
     private TextView currentNumberView;
 
     public static NumberFragment newInstance(TextView necessaryView){

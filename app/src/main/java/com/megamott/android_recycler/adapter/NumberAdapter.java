@@ -1,4 +1,4 @@
-package com.megamott.android_recycler;
+package com.megamott.android_recycler.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.megamott.android_recycler.R;
 
 public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberViewHolder> {
 
@@ -16,10 +19,11 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     private LayoutInflater numberInflater;
     private ItemClickListener itemClickListener;
 
-    NumberAdapter(int sheetSize, Context parent){
+    public NumberAdapter(int sheetSize, Context parent, ItemClickListener itemClickListener){
         this.sheetSize = sheetSize;
         this.parent = parent;
         this.numberInflater = LayoutInflater.from(parent);
+        this.itemClickListener = itemClickListener;
     }
 
     public void insert(){
@@ -56,23 +60,12 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
         public void bind(int onSheetIndex){
             numberView.setText(String.valueOf(onSheetIndex));
-            numberView.setTextColor(parent
-                    .getResources()
-                    .getColor(onSheetIndex %2 == 0 ? R.color.red : R.color.blue));
+            numberView.setTextColor(ContextCompat.getColor(parent, onSheetIndex %2 == 0 ? R.color.red : R.color.blue));
         }
 
         @Override
         public void onClick(View view) {
             if (itemClickListener != null) itemClickListener.onItemClick(view, getAdapterPosition());
         }
-    }
-
-    public void setClickListener(ItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
-    }
-
-    @FunctionalInterface
-    public interface ItemClickListener{
-        void onItemClick(View view, int position);
     }
 }

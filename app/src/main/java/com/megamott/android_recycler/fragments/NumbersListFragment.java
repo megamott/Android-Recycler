@@ -1,4 +1,4 @@
-package com.megamott.android_recycler;
+package com.megamott.android_recycler.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,7 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NumbersListFragment extends Fragment implements NumberAdapter.ItemClickListener {
+import com.megamott.android_recycler.R;
+import com.megamott.android_recycler.adapter.ItemClickListener;
+import com.megamott.android_recycler.adapter.NumberAdapter;
+
+public class NumbersListFragment extends Fragment implements ItemClickListener {
 
     private static final String POSITION_KEY = "POSITION";
     private RecyclerView numberSheet;
@@ -25,7 +29,7 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position_counter = savedInstanceState == null ? 20 : Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
+        if (savedInstanceState != null) position_counter = Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
     }
 
     @Override
@@ -39,8 +43,7 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
         int orientation = getActivity().getResources().getConfiguration().orientation;
         numberSheet.setLayoutManager(new GridLayoutManager(getActivity(), orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
 
-        numberAdapter = new NumberAdapter(position_counter, getActivity());
-        numberAdapter.setClickListener(this::onItemClick);
+        numberAdapter = new NumberAdapter(position_counter, getActivity(), this::onItemClick);
         numberSheet.setAdapter(numberAdapter);
 
         button = view.findViewById(R.id.insertion_button);
@@ -56,7 +59,7 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
     public void onItemClick(View view, int position) {
         NumberFragment nextFrag = NumberFragment.newInstance((TextView) view);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_layout, nextFrag, "findThisFragment")
+                .replace(R.id.main_layout, nextFrag, "FRAGMENT")
                 .addToBackStack(null)
                 .commit();
     }

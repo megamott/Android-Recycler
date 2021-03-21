@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="number_size">25sp</dimen>
+    <dimen name="number_size">48sp</dimen>
     <dimen name="number_clicked_size">80sp</dimen>
     <dimen name="sheet_grid_size">60dp</dimen>
-    <dimen name="frame_layout_padding">5dp</dimen>
+    <dimen name="frame_layout_margin">5dp</dimen>
 </resources>
