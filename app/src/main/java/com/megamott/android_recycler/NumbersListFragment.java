@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +54,7 @@ public class NumbersListFragment extends Fragment implements NumberAdapter.ItemC
 
     @Override
     public void onItemClick(View view, int position) {
-        NumberFragment nextFrag = new NumberFragment(view);
+        NumberFragment nextFrag = NumberFragment.newInstance((TextView) view);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_layout, nextFrag, "findThisFragment")
                 .addToBackStack(null)
