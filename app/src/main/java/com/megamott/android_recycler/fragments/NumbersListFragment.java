@@ -21,6 +21,7 @@ import com.megamott.android_recycler.adapter.NumberAdapter;
 public class NumbersListFragment extends Fragment implements ItemClickListener {
 
     private static final String POSITION_KEY = "POSITION";
+    private static final String FRAGMENT = "FRAGMENT";
     private RecyclerView numberSheet;
     private NumberAdapter numberAdapter;
     private Button button;
@@ -59,7 +60,7 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     public void onItemClick(View view, int position) {
         NumberFragment nextFrag = NumberFragment.newInstance((TextView) view);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_layout, nextFrag, "FRAGMENT")
+                .replace(R.id.main_layout, nextFrag, FRAGMENT)
                 .addToBackStack(null)
                 .commit();
     }
