@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +17,8 @@ import com.megamott.android_recycler.R;
 import com.megamott.android_recycler.adapter.ItemClickListener;
 import com.megamott.android_recycler.adapter.NumberAdapter;
 
+import java.util.Objects;
+
 public class NumbersListFragment extends Fragment implements ItemClickListener {
 
     private static final String POSITION_KEY = "POSITION";
@@ -25,12 +26,31 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     private RecyclerView numberSheet;
     private NumberAdapter numberAdapter;
     private Button button;
-    private int position_counter = 100;
+    private int positionCounter = 100;
+
+    enum ItemsInLine
+    {
+        PORTRAIT(3),
+        LANDSCAPE(4);
+
+        private final int value;
+
+        ItemsInLine(final int newValue)
+        {
+            value = newValue;
+        }
+
+        public int value()
+        {
+            return value;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) position_counter = Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
+        if (savedInstanceState != null)
+            positionCounter = Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
     }
 
     @Override
@@ -41,15 +61,16 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
 
         numberSheet = view.findViewById(R.id.number_sheet);
 
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        numberSheet.setLayoutManager(new GridLayoutManager(getActivity(), orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
+        int orientation = Objects.requireNonNull(getActivity()).getResources().getConfiguration().orientation;
+        numberSheet.setLayoutManager(new GridLayoutManager(getActivity(),
+                orientation == Configuration.ORIENTATION_PORTRAIT ? ItemsInLine.PORTRAIT.value : ItemsInLine.LANDSCAPE.value));
 
-        numberAdapter = new NumberAdapter(position_counter, getActivity(), this::onItemClick);
+        numberAdapter = new NumberAdapter(positionCounter, this.getContext(), this::onItemClick);
         numberSheet.setAdapter(numberAdapter);
 
         button = view.findViewById(R.id.insertion_button);
         button.setOnClickListener(v -> {
-            ++position_counter;
+            ++positionCounter;
             numberAdapter.insert();
         });
 
@@ -60,7 +81,7 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     public void onItemClick(Bundle args, int position) {
         NumberFragment nextFrag = NumberFragment.newInstance(args);
 
-        getActivity().getSupportFragmentManager().beginTransaction()
+        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_layout, nextFrag, FRAGMENT)
                 .addToBackStack(null)
                 .commit();
@@ -69,6 +90,6 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(POSITION_KEY, String.valueOf(position_counter));
+        outState.putString(POSITION_KEY, String.valueOf(positionCounter));
     }
 }

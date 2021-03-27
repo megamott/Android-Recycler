@@ -16,13 +16,13 @@ import com.megamott.android_recycler.R;
 public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberViewHolder> {
 
     private int sheetSize;
-    private Context parent;
+    private Context parentContext;
     private ItemClickListener itemClickListener;
 
-    public NumberAdapter(int sheetSize, Context parent, ItemClickListener itemClickListener) {
+    public NumberAdapter(int sheetSize, Context context, ItemClickListener itemClickListener) {
         this.sheetSize = sheetSize;
-        this.parent = parent;
         this.itemClickListener = itemClickListener;
+        this.parentContext = context;
     }
 
     public void insert() {
@@ -33,7 +33,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater numberInflater = LayoutInflater.from(this.parent);
+        LayoutInflater numberInflater = LayoutInflater.from(parentContext);
         View numberLayoutView = numberInflater.inflate(R.layout.number_in_sheet_layout, parent, false);
         return new NumberViewHolder(numberLayoutView);
     }
@@ -62,7 +62,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
         public void bind(int onSheetIndex) {
             numberView.setText(String.valueOf(onSheetIndex));
-            numberView.setTextColor(ContextCompat.getColor(parent, onSheetIndex % 2 == 0 ? R.color.red : R.color.blue));
+            numberView.setTextColor(ContextCompat.getColor(parentContext, onSheetIndex % 2 == 0 ? R.color.red : R.color.blue));
         }
 
         @Override
