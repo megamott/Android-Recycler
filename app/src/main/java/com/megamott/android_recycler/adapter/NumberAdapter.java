@@ -18,16 +18,14 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     private int sheetSize;
     private Context parent;
     private ItemClickListener itemClickListener;
-    private LayoutInflater numberInflater;
 
-    public NumberAdapter(int sheetSize, Context parent, ItemClickListener itemClickListener){
+    public NumberAdapter(int sheetSize, Context parent, ItemClickListener itemClickListener) {
         this.sheetSize = sheetSize;
         this.parent = parent;
         this.itemClickListener = itemClickListener;
-        this.numberInflater = LayoutInflater.from(this.parent);
     }
 
-    public void insert(){
+    public void insert() {
         sheetSize += 1;
         notifyItemInserted(sheetSize);
     }
@@ -35,6 +33,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater numberInflater = LayoutInflater.from(this.parent);
         View numberLayoutView = numberInflater.inflate(R.layout.number_in_sheet_layout, parent, false);
         return new NumberViewHolder(numberLayoutView);
     }
@@ -49,7 +48,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
         return sheetSize;
     }
 
-    public class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private static final String COLOR = "color";
         private static final String TEXT = "text";
@@ -61,17 +60,18 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
             itemView.setOnClickListener(this::onClick);
         }
 
-        public void bind(int onSheetIndex){
+        public void bind(int onSheetIndex) {
             numberView.setText(String.valueOf(onSheetIndex));
-            numberView.setTextColor(ContextCompat.getColor(parent, onSheetIndex %2 == 0 ? R.color.red : R.color.blue));
+            numberView.setTextColor(ContextCompat.getColor(parent, onSheetIndex % 2 == 0 ? R.color.red : R.color.blue));
         }
 
         @Override
         public void onClick(View view) {
             Bundle args = new Bundle();
-            args.putInt(COLOR , numberView.getCurrentTextColor());
+            args.putInt(COLOR, numberView.getCurrentTextColor());
             args.putCharSequence(TEXT, numberView.getText());
-            if (itemClickListener != null) itemClickListener.onItemClick(args, getAdapterPosition());
+            if (itemClickListener != null)
+                itemClickListener.onItemClick(args, getAdapterPosition());
         }
     }
 }
