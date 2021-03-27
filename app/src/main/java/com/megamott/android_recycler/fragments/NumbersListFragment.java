@@ -25,7 +25,7 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     private RecyclerView numberSheet;
     private NumberAdapter numberAdapter;
     private Button button;
-    private int position_counter = 20;
+    private int position_counter = 100;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,8 +57,9 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        NumberFragment nextFrag = NumberFragment.newInstance((TextView) view);
+    public void onItemClick(Bundle args, int position) {
+        NumberFragment nextFrag = NumberFragment.newInstance(args);
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_layout, nextFrag, FRAGMENT)
                 .addToBackStack(null)

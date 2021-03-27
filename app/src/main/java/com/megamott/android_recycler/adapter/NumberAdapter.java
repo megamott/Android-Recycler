@@ -1,6 +1,7 @@
 package com.megamott.android_recycler.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,14 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
     private int sheetSize;
     private Context parent;
-    private LayoutInflater numberInflater;
     private ItemClickListener itemClickListener;
+    private LayoutInflater numberInflater;
 
     public NumberAdapter(int sheetSize, Context parent, ItemClickListener itemClickListener){
         this.sheetSize = sheetSize;
         this.parent = parent;
-        this.numberInflater = LayoutInflater.from(parent);
         this.itemClickListener = itemClickListener;
+        this.numberInflater = LayoutInflater.from(this.parent);
     }
 
     public void insert(){
@@ -50,6 +51,8 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
     public class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        private static final String COLOR = "color";
+        private static final String TEXT = "text";
         private final TextView numberView;
 
         public NumberViewHolder(@NonNull View itemView) {
@@ -65,7 +68,10 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
         @Override
         public void onClick(View view) {
-            if (itemClickListener != null) itemClickListener.onItemClick(view, getAdapterPosition());
+            Bundle args = new Bundle();
+            args.putInt(COLOR , numberView.getCurrentTextColor());
+            args.putCharSequence(TEXT, numberView.getText());
+            if (itemClickListener != null) itemClickListener.onItemClick(args, getAdapterPosition());
         }
     }
 }

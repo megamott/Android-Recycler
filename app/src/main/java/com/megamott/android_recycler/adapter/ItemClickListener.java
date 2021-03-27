@@ -1,8 +1,8 @@
 package com.megamott.android_recycler.adapter;
 
-import android.view.View;
+import android.os.Bundle;
 
 @FunctionalInterface
 public interface ItemClickListener {
-    void onItemClick(View view, int position);
+    void onItemClick(Bundle args, int position);
 }

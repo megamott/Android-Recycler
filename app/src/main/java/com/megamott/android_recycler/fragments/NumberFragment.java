@@ -14,14 +14,11 @@ import com.megamott.android_recycler.R;
 
 public class NumberFragment extends Fragment {
 
-    private static final String COLOR = "COLOR";
-    private static final String TEXT = "TEXT";
+    private static final String COLOR = "color";
+    private static final String TEXT = "text";
     private TextView currentNumberView;
 
-    public static NumberFragment newInstance(TextView necessaryView){
-        Bundle args = new Bundle();
-        args.putInt(COLOR , necessaryView.getCurrentTextColor());
-        args.putCharSequence(TEXT, necessaryView.getText());
+    public static NumberFragment newInstance(Bundle args){
         NumberFragment numberFragment = new NumberFragment();
         numberFragment.setArguments(args);
         return numberFragment;
@@ -35,8 +32,8 @@ public class NumberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_number, container, false);
 
         currentNumberView = view.findViewById(R.id.current_number);
-        currentNumberView.setTextColor(getArguments().getInt(COLOR));
         currentNumberView.setText(getArguments().getCharSequence(TEXT));
+        currentNumberView.setTextColor(getArguments().getInt(COLOR));
         return view;
     }
 
