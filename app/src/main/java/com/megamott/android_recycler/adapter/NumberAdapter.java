@@ -13,21 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.megamott.android_recycler.R;
 
+import java.util.List;
+
 public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberViewHolder> {
 
-    private int sheetSize;
+    private List<String> content;
     private Context parentContext;
     private ItemClickListener itemClickListener;
 
-    public NumberAdapter(int sheetSize, Context context, ItemClickListener itemClickListener) {
-        this.sheetSize = sheetSize;
+    public NumberAdapter(List<String> content, Context context, ItemClickListener itemClickListener) {
+        this.content = content;
         this.itemClickListener = itemClickListener;
         this.parentContext = context;
     }
 
     public void insert() {
-        sheetSize += 1;
-        notifyItemInserted(sheetSize);
+        notifyItemInserted(content.size());
     }
 
     @NonNull
@@ -45,7 +46,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
 
     @Override
     public int getItemCount() {
-        return sheetSize;
+        return content.size();
     }
 
     public class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -57,11 +58,11 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NumberView
         public NumberViewHolder(@NonNull View itemView) {
             super(itemView);
             numberView = itemView.findViewById(R.id.number_element);
-            itemView.setOnClickListener(this::onClick);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(int onSheetIndex) {
-            numberView.setText(String.valueOf(onSheetIndex));
+            numberView.setText(String.valueOf(content.get(onSheetIndex - 1)));
             numberView.setTextColor(ContextCompat.getColor(parentContext, onSheetIndex % 2 == 0 ? R.color.red : R.color.blue));
         }
 

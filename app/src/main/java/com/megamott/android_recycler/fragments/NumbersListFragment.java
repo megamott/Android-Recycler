@@ -17,7 +17,12 @@ import com.megamott.android_recycler.R;
 import com.megamott.android_recycler.adapter.ItemClickListener;
 import com.megamott.android_recycler.adapter.NumberAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class NumbersListFragment extends Fragment implements ItemClickListener {
 
@@ -26,23 +31,19 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     private RecyclerView numberSheet;
     private NumberAdapter numberAdapter;
     private Button button;
-    private int positionCounter = 100;
+    private List<String> list;
+    private int positionCounter = 10;
 
     enum ItemsInLine
     {
-        PORTRAIT(3),
-        LANDSCAPE(4);
+        PORTRAIT(2),
+        LANDSCAPE(3);
 
         private final int value;
 
         ItemsInLine(final int newValue)
         {
             value = newValue;
-        }
-
-        public int value()
-        {
-            return value;
         }
     }
 
@@ -51,6 +52,7 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null)
             positionCounter = Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
+            list = Stream.generate(() -> "Do it").limit(positionCounter).collect(Collectors.toList());
     }
 
     @Override
@@ -65,12 +67,13 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
         numberSheet.setLayoutManager(new GridLayoutManager(getActivity(),
                 orientation == Configuration.ORIENTATION_PORTRAIT ? ItemsInLine.PORTRAIT.value : ItemsInLine.LANDSCAPE.value));
 
-        numberAdapter = new NumberAdapter(positionCounter, this.getContext(), this::onItemClick);
+
+        numberAdapter = new NumberAdapter(list, this.getContext(), this);
         numberSheet.setAdapter(numberAdapter);
 
         button = view.findViewById(R.id.insertion_button);
         button.setOnClickListener(v -> {
-            ++positionCounter;
+            list.add("Do it");
             numberAdapter.insert();
         });
 
@@ -90,6 +93,6 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(POSITION_KEY, String.valueOf(positionCounter));
+        outState.putString(POSITION_KEY, String.valueOf(list.size()));
     }
 }
