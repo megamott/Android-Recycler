@@ -15,7 +15,7 @@
         android:minHeight="64dp"
         android:gravity="center_vertical"
         android:fontFamily="monospace"
-        android:textSize="@dimen/number_size"
+        android:textSize="@dimen/note_size"
         tools:text="some_text"/>
 
     <CheckBox
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/number_element_completed"
-        android:textSize="@dimen/number_size"
+        android:textSize="@dimen/note_size"
         android:layout_marginStart="8dp"/>
 
     <ImageView

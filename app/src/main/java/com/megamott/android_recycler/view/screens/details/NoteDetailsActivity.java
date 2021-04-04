@@ -41,7 +41,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        setTitle(getString(R.string.note_details_title));
+        setTitle(getString(R.string.note_title));
 
         inputText = findViewById(R.id.details_text);
 

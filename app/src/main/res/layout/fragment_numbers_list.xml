@@ -21,7 +21,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
     </LinearLayout>
 
     <Button
@@ -29,9 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/insert_item"
-        android:textColor="@color/red"
-        android:backgroundTint="@color/grey"/>
+        android:text="@string/add_new_note"
+        android:textColor="@color/white"
+        android:textSize="@dimen/settings_name_size"
+        android:backgroundTint="@color/colorPrimary"/>
 
 
 </RelativeLayout>

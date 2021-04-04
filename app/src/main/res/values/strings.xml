@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Notes</string>
-    <string name="insert_item">Insert item</string>
+    <string name="add_new_note">Add new note</string>
     <string name="put_note_text_here">Put note text here!</string>
-    <string name="note_details_title">Note</string>
+    <string name="note_title">Notes</string>
     <string name="save">Save</string>
     <string name="number_element_completed">Completed</string>
 

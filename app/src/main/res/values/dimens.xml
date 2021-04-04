@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="number_size">24sp</dimen>
+    <dimen name="note_size">24sp</dimen>
+    <dimen name="settings_name_size">16sp</dimen>
     <dimen name="number_clicked_size">80sp</dimen>
     <dimen name="sheet_grid_size">60dp</dimen>
     <dimen name="frame_layout_margin">5dp</dimen>
