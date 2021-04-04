@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.view;
+package com.megamott.android_recycler.view.screens.main;
 
 import android.os.Bundle;
 

@@ -7,40 +7,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.megamott.android_recycler.R;
-import com.megamott.android_recycler.view.adapter.ItemClickListener;
+import com.megamott.android_recycler.model.Note;
 import com.megamott.android_recycler.view.adapter.NumberAdapter;
+import com.megamott.android_recycler.view.screens.details.NoteDetailsActivity;
+import com.megamott.android_recycler.view.screens.main.MainViewModel;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class NumbersListFragment extends Fragment implements ItemClickListener {
+public class NumbersListFragment extends Fragment {
 
     private static final String POSITION_KEY = "POSITION";
     private static final String FRAGMENT = "FRAGMENT";
-    private RecyclerView numberSheet;
-    private NumberAdapter numberAdapter;
-    private Button button;
-    private List<String> list;
-    private int positionCounter = 10;
 
-    enum ItemsInLine
-    {
-        PORTRAIT(2),
-        LANDSCAPE(3);
+    private RecyclerView numberSheet;
+    private NumberAdapter notesAdapter;
+    private Button button;
+
+    enum ItemsInLine {
+        PORTRAIT(1),
+        LANDSCAPE(2);
 
         private final int value;
 
-        ItemsInLine(final int newValue)
-        {
+        ItemsInLine(final int newValue) {
             value = newValue;
         }
     }
@@ -48,9 +47,6 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null)
-            positionCounter = Integer.parseInt(savedInstanceState.getString(POSITION_KEY));
-            list = Stream.generate(() -> "Do it").limit(positionCounter).collect(Collectors.toList());
     }
 
     @Override
@@ -66,31 +62,32 @@ public class NumbersListFragment extends Fragment implements ItemClickListener {
                 orientation == Configuration.ORIENTATION_PORTRAIT ? ItemsInLine.PORTRAIT.value : ItemsInLine.LANDSCAPE.value));
 
 
-        numberAdapter = new NumberAdapter(list, this.getContext(), this);
-        numberSheet.setAdapter(numberAdapter);
+        if (this.getContext() != null)
+        {
+            numberSheet.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
+            numberSheet.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.HORIZONTAL));
+        }
+
+        notesAdapter = new NumberAdapter();
+        numberSheet.setAdapter(notesAdapter);
 
         button = view.findViewById(R.id.insertion_button);
+
         button.setOnClickListener(v -> {
-            list.add("Do it");
-            numberAdapter.insert();
+            NoteDetailsActivity.startActivity(getActivity(), null);
+        });
+
+        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        mainViewModel.getListLiveData().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                notesAdapter.setItems(notes);
+            }
         });
 
         return view;
     }
 
-    @Override
-    public void onItemClick(Bundle args, int position) {
-        NumberFragment nextFrag = NumberFragment.newInstance(args);
 
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_layout, nextFrag, FRAGMENT)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(POSITION_KEY, String.valueOf(list.size()));
-    }
 }

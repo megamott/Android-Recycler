@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="@dimen/frame_layout_margin"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:text="1"
-    android:id="@+id/number_element"
-    android:gravity="center"
-    android:textSize="@dimen/number_size"
-    android:fontFamily="monospace"
-    android:background="@color/grey">
+    android:padding="@dimen/number_in_sheet_padding"
+    android:gravity="center">
 
-</TextView>
+    <TextView
+        android:id="@+id/number_element_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="64dp"
+        android:gravity="center_vertical"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/number_size"
+        tools:text="some_text"/>
+
+    <CheckBox
+        android:id="@+id/number_element_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_element_completed"
+        android:textSize="@dimen/number_size"
+        android:layout_marginStart="8dp"/>
+
+    <ImageView
+        android:id="@+id/number_element_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:src="@android:drawable/ic_notification_clear_all"/>
+
+</LinearLayout>
+
