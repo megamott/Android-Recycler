@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.view.screens.details;
+package com.megamott.notes.view.screens.details;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.megamott.android_recycler.App;
-import com.megamott.android_recycler.R;
-import com.megamott.android_recycler.model.Note;
+import com.megamott.notes.App;
+import com.megamott.notes.R;
+import com.megamott.notes.model.Note;
 
 public class NoteDetailsActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.model;
+package com.megamott.notes.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

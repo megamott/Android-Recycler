@@ -5,5 +5,6 @@
     <string name="note_title">Notes</string>
     <string name="save">Save</string>
     <string name="number_element_completed">Completed</string>
+    <string name="image_descriptor">image</string>
 
 </resources>

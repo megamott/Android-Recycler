@@ -1,28 +1,23 @@
-package com.megamott.android_recycler.view.adapter;
+package com.megamott.notes.view.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
-import com.megamott.android_recycler.App;
-import com.megamott.android_recycler.R;
-import com.megamott.android_recycler.model.Note;
-import com.megamott.android_recycler.view.screens.details.NoteDetailsActivity;
+import com.megamott.notes.App;
+import com.megamott.notes.R;
+import com.megamott.notes.model.Note;
+import com.megamott.notes.view.screens.details.NoteDetailsActivity;
 
 import java.util.List;
-import java.util.SortedMap;
 
 public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NoteViewHolder> {
 
@@ -97,11 +92,8 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NoteViewHo
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        private static final String COLOR = "color";
-        private static final String TEXT = "text";
         private final TextView noteText;
         private final CheckBox completed;
-        private final View delete;
 
         private Note note;
 
@@ -111,32 +103,19 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.NoteViewHo
             super(itemView);
             noteText = itemView.findViewById(R.id.number_element_text);
             completed = itemView.findViewById(R.id.number_element_completed);
-            delete = itemView.findViewById(R.id.number_element_delete);
+            View delete = itemView.findViewById(R.id.number_element_delete);
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    App.getInstance().getNoteDao().delete(note);
+            delete.setOnClickListener(v -> App.getInstance().getNoteDao().delete(note));
+
+            completed.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (!silentUpdate) {
+                    note.setDone(isChecked);
+                    App.getInstance().getNoteDao().update(note);
                 }
+                updateStrokeOut();
             });
 
-            completed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (!silentUpdate) {
-                        note.setDone(isChecked);
-                        App.getInstance().getNoteDao().update(note);
-                    }
-                    updateStrokeOut();
-                }
-            });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NoteDetailsActivity.startActivity((Activity) itemView.getContext(), note);
-                }
-            });
+            itemView.setOnClickListener(v -> NoteDetailsActivity.startActivity((Activity) itemView.getContext(), note));
         }
 
         public void bind(Note note) {

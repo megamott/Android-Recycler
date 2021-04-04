@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.data;
+package com.megamott.notes.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.megamott.android_recycler.model.Note;
+import com.megamott.notes.model.Note;
 
 import java.util.List;
 

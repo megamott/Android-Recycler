@@ -1,12 +1,12 @@
-package com.megamott.android_recycler.view.screens.main;
+package com.megamott.notes.view.screens.main;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.megamott.android_recycler.R;
-import com.megamott.android_recycler.view.fragments.NumbersListFragment;
+import com.megamott.notes.R;
+import com.megamott.notes.view.fragments.NumbersListFragment;
 
 public class MainActivity extends AppCompatActivity{
 

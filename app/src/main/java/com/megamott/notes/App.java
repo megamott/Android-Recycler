@@ -1,11 +1,11 @@
-package com.megamott.android_recycler;
+package com.megamott.notes;
 
 import android.app.Application;
 
 import androidx.room.Room;
 
-import com.megamott.android_recycler.data.AppDatabase;
-import com.megamott.android_recycler.data.NoteDao;
+import com.megamott.notes.data.AppDatabase;
+import com.megamott.notes.data.NoteDao;
 
 public class App extends Application {
 
@@ -29,10 +29,6 @@ public class App extends Application {
                 .build();
 
         noteDao = database.noteDao();
-    }
-
-    public AppDatabase getDatabase() {
-        return database;
     }
 
     public NoteDao getNoteDao() {
