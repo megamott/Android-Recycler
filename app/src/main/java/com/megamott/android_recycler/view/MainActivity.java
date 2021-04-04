@@ -1,10 +1,11 @@
-package com.megamott.android_recycler;
+package com.megamott.android_recycler.view;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.megamott.android_recycler.fragments.NumbersListFragment;
+import com.megamott.android_recycler.R;
+import com.megamott.android_recycler.view.fragments.NumbersListFragment;
 
 public class MainActivity extends AppCompatActivity{
 

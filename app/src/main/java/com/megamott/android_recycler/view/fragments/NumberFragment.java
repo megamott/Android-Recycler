@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.fragments;
+package com.megamott.android_recycler.view.fragments;
 
 import android.os.Bundle;
 

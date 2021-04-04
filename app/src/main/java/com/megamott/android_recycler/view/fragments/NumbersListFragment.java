@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.fragments;
+package com.megamott.android_recycler.view.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.megamott.android_recycler.R;
-import com.megamott.android_recycler.adapter.ItemClickListener;
-import com.megamott.android_recycler.adapter.NumberAdapter;
+import com.megamott.android_recycler.view.adapter.ItemClickListener;
+import com.megamott.android_recycler.view.adapter.NumberAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

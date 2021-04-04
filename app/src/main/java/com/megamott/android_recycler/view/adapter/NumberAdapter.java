@@ -1,4 +1,4 @@
-package com.megamott.android_recycler.adapter;
+package com.megamott.android_recycler.view.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
